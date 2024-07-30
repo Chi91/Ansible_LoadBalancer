@@ -10,6 +10,8 @@ This project automates the setup of a load balancer and deployment of a web serv
 - SSH access to the EC2 instances
 - A suitable user with sudo privileges on the target servers
 - A `index.html` file to be deployed
+- Three EC2 instances must be created in advance. The IP addresses of these instances need to be added and updated in the inventory file.
+
 
 ## Playbooks Overview
 
@@ -17,5 +19,5 @@ This project automates the setup of a load balancer and deployment of a web serv
   - Installing Apache and PHP on all EC2 instances
   - Copying `index.html` to `/var/www/html/` on each instance
   - Setting up and configuring the load balancer
-  
+
 - **Group Vars**: Group variables are used to manage configuration settings for different groups of servers. This allows for centralized management of variables such as server-specific settings, installation parameters, and load balancer configurations. Group Vars are defined in the `group_vars/` directory and are utilized in the playbook to ensure consistent and flexible configuration across the EC2 instances.
