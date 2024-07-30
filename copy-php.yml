@@ -1,0 +1,11 @@
+---
+- name: Copy index.php file and move to the server
+  hosts: webserver
+  become: true
+  tasks:
+    - name: Upload index.php file
+      copy:
+        src: "./config/index.php"
+        dest: "/var/www/html/index.html"
+        mode: "0755"
+      

@@ -1,0 +1,33 @@
+---
+- name: Copy config file in loadbalancer
+  hosts: loadbalancer
+  become: true
+  tasks:
+    - name: Upload config file in loadbalancer
+      copy:
+        src: "./config/loadbalancer.cfg"
+        dest: "/etc/apache2/sites-available/000-default.conf"
+        mode: "0755"
+      notify: Restart apache server
+
+    - name: Enable mod_proxy
+      command: "a2enmod proxy"
+      notify: "Restart apache server"
+
+    - name: Enable mod_proxy_balancer
+      command: "a2enmod proxy_balancer"
+      notify: Restart apache server
+
+    - name: Enable mod_proxy_http
+      command: "a2enmod proxy_http"
+      notify: Restart apache server
+
+    - name: Enable mod_lbmethod_byrequests
+      command: "a2enmod lbmethod_byrequests"
+      notify: Restart apache server
+
+  handlers:
+    - name: Restart apache server
+      service:
+        name: apache2
+        state: restarted
